@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机点名系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>随机点名系统</h1>
+    <label for="numPeople">请输入需要的人数：</label>
+    <input type="number" id="numPeople" min="1" max="11" required>
+    <button onclick="generateNames()">生成</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    const names = ["熊宇轩", "彭泽宇", "南智贤", "黎锦城", "朱传喻", "邹戊昕", "王笑天", "王培阳", "郑旭延", "王同宇", "姚琪仁"];
+
+    function generateNames() {
+        const numPeople = parseInt(document.getElementById('numPeople').value);
+        if (numPeople < 1 || numPeople > names.length) {
+            alert(`请输入1到${names.length}之间的数字`);
+            return;
+        }
+
+        const shuffledNames = shuffleArray(names);
+        const selectedNames = shuffledNames.slice(0, numPeople);
+
+        document.getElementById('result').innerHTML = `抽中的人：${selectedNames.join(', ')}`;
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+</script>
+
+</body>
+</html>
